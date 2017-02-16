@@ -4,6 +4,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * Unit test for simple App.
  */
@@ -43,5 +45,63 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
+    }
+
+    private static long result1=0;
+    private static long result2=0;
+    private static long result3=0;
+
+    public static void main(String[] args) throws InterruptedException {
+        CountDownLatch cd = new CountDownLatch(3);
+        int n, i;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                for (int i = 0; i < 101; i++) {
+                    result1+=i;
+                }
+                cd.countDown();
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                for (int i = 0; i < 101; i++) {
+                    result2+=i;
+                }
+                cd.countDown();
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                for (int i = 0; i < 101; i++) {
+                    result3+=i;
+                }
+                cd.countDown();
+            }
+        }).start();
+
+        cd.await();
+        System.out.println(result1 + result2 + result3 );
+        System.out.println("over");
     }
 }
