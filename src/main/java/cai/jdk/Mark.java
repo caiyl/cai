@@ -7,6 +7,7 @@ import java.io.IOException;
 
 /**
  * Created by caiyl on 2017/2/16.
+ * mark和reset的用法
  *
  * BufferedInputStream类mark(int readlimit)中readlimit的确切含义
  浏览(5753)|评论(1)   交流分类：Web前端技术|笔记分类: 未分类
@@ -20,6 +21,7 @@ import java.io.IOException;
  */
 public class Mark {
     public static void main(String[] args) {
+        float a = 1.5f;
 
         try {
             // 初始化一个字节数组，内有5个字节的数据
