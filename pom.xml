@@ -33,6 +33,11 @@
       <artifactId>lucene-core</artifactId>
       <version>3.0.1</version>
     </dependency>
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>RELEASE</version>
+      </dependency>
 
 
   </dependencies>
