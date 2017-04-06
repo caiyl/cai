@@ -42,6 +42,7 @@ public class FutureDemo {
         }
 
         System.out.println("做其他事情");
+        future.cancel(true);
 
 //       获取结果
         try {
