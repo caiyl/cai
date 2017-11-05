@@ -28,10 +28,17 @@
       <version>6.3.0</version>
     </dependency>-->
     <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-core -->
+    <!--lucene core-->
     <dependency>
       <groupId>org.apache.lucene</groupId>
       <artifactId>lucene-core</artifactId>
       <version>3.0.1</version>
+    </dependency>
+    <!--netty io\netty\netty-all\4.1.6.Final-->
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+      <version>4.1.6.Final</version>
     </dependency>
 
 

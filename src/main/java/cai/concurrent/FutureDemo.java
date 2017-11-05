@@ -34,20 +34,21 @@ public class FutureDemo {
         LongTimeTask task = new LongTimeTask();
         Future<String> future = threadpool.submit(task);
 
-        //主线程等待2秒
+        //主线程等待2.5秒
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         System.out.println("做其他事情");
-        future.cancel(true);
+//        future.cancel(true);
 
 //       获取结果
         try {
-            String result = future.get(15,TimeUnit.SECONDS);
-            System.out.println(result);
+            String result = future.get(5,TimeUnit.SECONDS);
+//            String result = future.get(10,TimeUnit.SECONDS);
+            System.out.println("future返回："+result);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
