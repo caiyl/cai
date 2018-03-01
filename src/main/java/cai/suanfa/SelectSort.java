@@ -21,14 +21,12 @@ public class SelectSort extends TempSort{
             int min = i;
             for (int j = i+1; j < arr.length; j++) {
                 if (isLess(arr[j],arr[min])) {
-                    min = j;//找出最新元素的位置
+                    min = j;//找出最新元素的位置,而不是最小值
                 }
-                exch(arr,j,min);
             }
+            exch(arr,i,min);
         }
 
     }
-
-
 
 }

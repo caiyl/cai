@@ -11,7 +11,7 @@ public abstract class  TempSort {
      */
     public void show(Comparable [] arr) {
         for (int i = 0; i < arr.length; i++) {
-            System.out.println(i);
+            System.out.println(arr[i]);
 
         }
     }
@@ -41,18 +41,5 @@ public abstract class  TempSort {
         arr[j] = temp;
     }
     protected  abstract void sort(Comparable[] arr);
-
-
-/*
-    public  boolean isSorted(Comparable[] arr){
-        for (int i = 0; i < arr.length; i++) {
-            if (isLess(arr[i],arr[i-1])) {
-                return false;
-            }
-        }
-        return true;
-    }
-*/
-
 
 }
