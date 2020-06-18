@@ -32,7 +32,7 @@
     <dependency>
       <groupId>org.apache.lucene</groupId>
       <artifactId>lucene-core</artifactId>
-      <version>3.0.1</version>
+      <version>7.1.0</version>
     </dependency>
     <!--netty io\netty\netty-all\4.1.6.Final-->
     <dependency>
