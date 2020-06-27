@@ -1,5 +1,9 @@
 package cai.concurrent;
 
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 /**
  * volatile线程的可见性、与指令的重排序两个功能
  * 如果没有volatile，线程里的flag不会主动读取主内存的flag
