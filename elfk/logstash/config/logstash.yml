@@ -1,0 +1,5 @@
+http.host: 0.0.0.0
+pipeline.batch.size: 10
+xpack.management.pipeline.id:
+- main
+xpack.monitoring.enabled: false

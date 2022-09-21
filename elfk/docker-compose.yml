@@ -1,0 +1,77 @@
+# elfk.yml
+version: '3'
+
+networks:
+  elfk-net:
+    driver: bridge
+
+services:
+  elasticsearch:
+    image: elasticsearch:7.8.0
+    container_name: elk-es
+        #选择网络
+    networks:
+      - elfk-net
+    restart: always
+    environment:
+      # 开启内存锁定
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "TAKE_FILE_OWNERSHIP=true"
+      # 指定单节点启动
+      - discovery.type=single-node
+    ulimits:
+      # 取消内存相关限制  用于开启内存锁定
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./eslogs/data:/usr/share/elasticsearch/data
+      - ./eslogs:/usr/share/elasticsearch/logs
+      - ./eslogs/plugins:/usr/share/elasticsearch/plugins
+    ports:
+      - "9200:9200"
+  kibana:
+    image: kibana:7.8.0
+    container_name: elk-kibana
+    #选择网络
+    networks:
+      - elfk-net
+    restart: always
+    depends_on:
+      - elasticsearch #kibana在elasticsearch启动之后再启动
+    environment:
+      ELASTICSEARCH_HOSTS: http://elk-es:9200
+      I18N_LOCALE: zh-CN
+    ports:
+      - "5601:5601"
+  logstash:
+    # 这里由于是mac m1芯片7.8.0无法启动，所以使用了7.17.6版本
+    image: logstash:7.17.6
+    container_name: elk-logstash
+    #选择网络
+    networks:
+      - elfk-net
+    restart: always
+    depends_on:
+      - elasticsearch #logstash在elasticsearch启动之后再启动
+    environment:
+      XPACK_MONITORING_ENABLED: "false"
+      pipeline.batch.size: 10
+    volumes:
+      - ./logstash/config:/usr/share/logstash/config
+      - ./logstash/data:/usr/share/logstash/data
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+    ports:
+      - "4560:4560" #设置端口
+  filebeat:
+    image: elastic/filebeat:7.8.0
+    networks:
+      - elfk-net
+    restart: always
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./appLog:/logs/appLog
+      - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml

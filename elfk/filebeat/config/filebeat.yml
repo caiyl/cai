@@ -1,0 +1,15 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+  - /logs/appLog/*.log
+  fields:
+    appname: business-service  # 自定义字段，提供给 Logstash 用于区分日志来源
+  fields_under_root: true  # 开启自定义字段
+ 
+processors:
+  - drop_fields:
+      fields: ["log","input","host","agent","ecs"] # 过滤不需要的字段
+ 
+output.logstash:
+  hosts: ['logstash:5044']

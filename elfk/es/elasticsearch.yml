@@ -1,0 +1,7 @@
+# 允许通过本机所有IP访问
+http.host: 0.0.0.0
+# 是否支持跨域，默认为false
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+# elasticsearch 7版本以上的默认只允许1000个分片,可能会报分片不足的问题
+cluster.max_shards_per_node: 10000
