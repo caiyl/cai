@@ -2,5 +2,6 @@ spring:
   elasticsearch:
     rest:
       uris: localhost:9200
-#      username: elastic
-#      password: changeme
+      username: elastic
+      password: changeme
+
