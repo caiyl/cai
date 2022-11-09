@@ -1,0 +1,13 @@
+server:
+  servlet:
+    context-path: /rbac
+
+#jwt
+jwt:
+  header: Authorization
+  # ????
+  token-start-with: Bearer
+  # ??Base64????????
+  base64-secret: Y21GaVkzQmhkM2R5YjJSbVlXWmhjMlJtY21GaVkzQmhkM2R5YjJSbVlXWmhjMlJtY21GaVkzQmhkM2R5YjJSbVlXWmhjMlJtY21GaVkzQmhkM2R5YjJSbVlXWmhjMlJt
+  # ?????? ????/??
+  token-validity-in-seconds: 14400000
