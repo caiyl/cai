@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
-import com.baomidou.mybatisplus.generator.config.converts.OracleTypeConvert;
+import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * @author chase
@@ -33,6 +34,7 @@ public class CodeGenerator {
         String moduleName = "rbac";
         //表名
         String[] tableName = {"t_rbac_user"};
+        com.p6spy.engine.spy.P6SpyDriver a = null;
         /*
           生成的范围
           1: 全部生成 (controller,service,mapper,entity)
@@ -59,7 +61,7 @@ public class CodeGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/org/rbac/src/main/java");
+        gc.setOutputDir(projectPath + "/rbac/src/main/java");
         gc.setAuthor(author);
         gc.setOpen(false); //生成后是否打开资源管理器
         gc.setFileOverride(isFileOverride); //重新生成时文件是否覆盖
@@ -77,18 +79,18 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:oracle:thin:@10.20.100.63:1521:fzsdbdev");
-        dsc.setDbType(DbType.ORACLE);
-        dsc.setTypeConvert(new OracleTypeConvert());
-        dsc.setDriverName("oracle.jdbc.driver.OracleDriver");
-        dsc.setUsername("iotcarddb");
-        dsc.setPassword("iotcarddb_123321");
+        dsc.setUrl("jdbc:mysql://localhost:3306/rbac?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8");
+        dsc.setDbType(DbType.MYSQL);
+        dsc.setTypeConvert(new MySqlTypeConvert());
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
+        dsc.setUsername("root");
+        dsc.setPassword("root");
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(moduleName);
-        pc.setParent("org.rbac");
+        pc.setParent("org");
         pc.setController("controller." + type);
         pc.setEntity("entity." + type);
         pc.setService("service." + type);
@@ -123,18 +125,17 @@ public class CodeGenerator {
         String responseTemplatePath = "/templates/response.java.ftl";
         String serviceTemplatePath = "/templates/service.java.ftl";
         String serviceImplTemplatePath = "/templates/serviceImpl.java.ftl";
-        final String flowsync = "flowsync";
-        final String s = "-service/src/main/java/com/fzs/iotcard/";
+        final String s = "/src/main/java/org/";
         // 自定义输出配置
         List<FileOutConfig> focList = new ArrayList<>();
         // 自定义配置会被优先输出
         if (range.equals("1") || range.equals("2") || range.equals("3")) {
-            //xml文件
+            //java文件
             focList.add(new FileOutConfig(mapperTemplatePath) {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
                     // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                    return projectPath + "/common-service/src/main/java/com/fzs/iotcard/common/" + moduleName
+                    return projectPath + "/rbac/src/main/java/org/" + moduleName
                             + "/mapper/" + type + "/" +tableInfo.getEntityName() + "Mapper" + StringPool.DOT_JAVA;
                 }
             });
@@ -144,7 +145,7 @@ public class CodeGenerator {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
                     // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                    return projectPath + "/common-service/src/main/resources/mapper/" + moduleName
+                    return projectPath + "/rbac/src/main/resources/mapper/" + moduleName
                             + "/" + type + "/" +tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
                 }
             });
@@ -153,19 +154,15 @@ public class CodeGenerator {
         String path = s;
 
         final String finalPath = path;
+
         if (range.equals("1")) {
             //controller
             focList.add(new FileOutConfig(controllerTemplatePath) {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
-                    // 自定义输出文件名
-                    if (moduleName.equals(flowsync)) {
-                        return projectPath + "/" + finalPath +  pc.getModuleName()
-                                + "/controller/" + type + "/" + tableInfo.getEntityName() + CONTROLLER + StringPool.DOT_JAVA;
-                    } else {
+
                         return projectPath + "/" + moduleName + finalPath +  pc.getModuleName()
                                 + "/controller/" + type + "/" + tableInfo.getEntityName() + CONTROLLER + StringPool.DOT_JAVA;
-                    }
                 }
             });
         }
@@ -205,15 +202,11 @@ public class CodeGenerator {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
                     // 自定义输出文件名
-                    if (moduleName.equals(flowsync)) {
-                        return projectPath + "/" + finalPath +  pc.getModuleName()
-                                + service + type + "/" + moduleName.substring(0, 1).toUpperCase() +moduleName.substring(1) + tableInfo.getEntityName()
-                                + SERVICE + StringPool.DOT_JAVA;
-                    } else {
+
                         return projectPath + "/" + moduleName + finalPath +  pc.getModuleName()
                                 + service + type + "/" + moduleName.substring(0, 1).toUpperCase() +moduleName.substring(1) + tableInfo.getEntityName()
                                 + SERVICE + StringPool.DOT_JAVA;
-                    }
+
                 }
             });
 
@@ -221,16 +214,11 @@ public class CodeGenerator {
             focList.add(new FileOutConfig(serviceImplTemplatePath) {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
-                    // 自定义输出文件名
-                    if (moduleName.equals(flowsync)) {
-                        return projectPath + "/" + finalPath +  pc.getModuleName() + "/"
-                                + service + type + "/impl/" + moduleName.substring(0, 1).toUpperCase() +moduleName.substring(1) + tableInfo.getEntityName()
-                                + SERVICE_IMPL + StringPool.DOT_JAVA;
-                    } else {
+
                         return projectPath + "/" + moduleName + finalPath +  pc.getModuleName() + "/"
                                 + service + type + "/impl/" + moduleName.substring(0, 1).toUpperCase() +moduleName.substring(1) + tableInfo.getEntityName()
                                 + SERVICE_IMPL + StringPool.DOT_JAVA;
-                    }
+
                 }
             });
         }

@@ -40,7 +40,7 @@ public abstract class BaseEntity implements Serializable {
      * 修改人
      */
     @TableField(fill = FieldFill.UPDATE)
-    private String operator;
+    private Long operator;
 
     /**
      * 修改时间

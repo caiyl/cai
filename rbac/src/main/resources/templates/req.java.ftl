@@ -1,6 +1,6 @@
 package ${cfg.reqPackage};
 
-import com.fzs.iotcard.common.dto.BaseRequest;
+import org.rbac.dto.BaseRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
