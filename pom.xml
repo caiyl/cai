@@ -17,6 +17,7 @@
       <module>rbac</module>
       <module>docker</module>
       <module>base</module>
+      <module>spring-batch</module>
   </modules>
   <packaging>pom</packaging>
 

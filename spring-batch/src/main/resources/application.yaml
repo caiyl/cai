@@ -1,0 +1,15 @@
+server:
+  servlet:
+    context-path: /batch
+
+
+
+spring:
+  datasource:
+    url: jdbc:p6spy:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/batch?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true&rewriteBatchedStatements=true
+    username: root
+    password: root
+    hikari:
+      max-lifetime: 30000
+      pool-name: rbacpool
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
