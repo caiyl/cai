@@ -5,6 +5,9 @@ import java.util.*;
 /**
  * @author chase
  * @date 2023/2/4 5:52 PM
+ * @Link https://www.cnblogs.com/woyujiezhen/p/16435909.html
+ * java实现bitmap
+ * bitmap 海量数据的去重、排序、查找
  */
 @Slf4j
 public class BitMap {
@@ -77,7 +80,6 @@ public class BitMap {
         for (int i = 0; i < randomNumberList.size(); i++) {
             System.out.println(randomNumberList.get(i) + "\t" + allNumberList.get(i));
         }
-
     }
 }
 
