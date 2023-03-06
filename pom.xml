@@ -19,6 +19,7 @@
       <module>base</module>
       <module>spring-batch</module>
     <module>web</module>
+      <module>boot</module>
   </modules>
   <packaging>pom</packaging>
 
