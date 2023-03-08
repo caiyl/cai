@@ -20,6 +20,7 @@
       <module>spring-batch</module>
     <module>web</module>
       <module>boot</module>
+      <module>anno</module>
   </modules>
   <packaging>pom</packaging>
 
