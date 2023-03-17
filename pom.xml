@@ -21,6 +21,7 @@
     <module>web</module>
       <module>boot</module>
       <module>anno</module>
+    <module>bfProcess</module>
   </modules>
   <packaging>pom</packaging>
 
