@@ -28,6 +28,9 @@ public class BootApp {
         System.out.println("&userServiceFactoryBean instanceof UserServiceFactoryBean:"+(bean1 instanceof UserServiceFactoryBean));
         System.out.println("&userServiceFactoryBean instanceof UserService:"+(bean1 instanceof UserService));
 
+//        多例循环依赖，set注入失败
+//        System.out.println(applicationContext.getBean(ServiceEEE.class));
+
 
     }
 
