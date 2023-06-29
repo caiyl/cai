@@ -18,10 +18,10 @@
       <module>docker</module>
       <module>base</module>
       <module>spring-batch</module>
-    <module>web</module>
+      <module>web</module>
       <module>boot</module>
       <module>anno</module>
-    <module>bfProcess</module>
+      <module>mybaits</module>
   </modules>
   <packaging>pom</packaging>
 

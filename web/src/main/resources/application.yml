@@ -1,19 +1,14 @@
-redis:
-    test:
-        'on':
-            borrow: true
-            return: false
 spring:
     redis:
         database: 0
-        host: localhost
-        jedis:
-            pool:
-                max-active: -1
-                max-idle: 5
-                max-wait: 30
-                min-idle: 5
-        password:
-            enable: false
+        host: 127.0.0.1
         port: 6379
         timeout: 10000
+        lettuce:
+            pool:
+                maxActive: 100					#最大连接数
+                maxIdle: 100						#连接池最大空闲连接数.
+                minIdle: 100						#连接池最小空闲连接数.
+                max-wait: 2000					#从连接池中获取连接时的最大等待时间
+                time-between-eviction-runs: 60s	#空闲对象逐出器线程的运行间隔时间.空闲连接线程释放周期时间.
+
